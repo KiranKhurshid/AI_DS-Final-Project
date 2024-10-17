@@ -50,5 +50,5 @@ if st.button('Analyze'):
     lstm_prediction = lstm_model.predict(lstm_input_pad)[0][0]
 
     # Display results
-    st.write('Naive Bayes Prediction: Positive' if nb_prediction == 0 else 'Naive Bayes Prediction: Negative')
-    st.write('LSTM Prediction: Positive' if lstm_prediction >= 0.5 else 'LSTM Prediction: Negative')
+    st.write('Naive Bayes Prediction: Positive' if nb_prediction == 1 else 'Naive Bayes Prediction: Negative')
+    st.write('LSTM Prediction: Positive' if lstm_prediction >= 1 else 'LSTM Prediction: Negative')
