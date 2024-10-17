@@ -1,0 +1,6 @@
+streamlit
+joblib
+tensorflow
+numpy
+gensim  # For Word2Vec
+nltk
