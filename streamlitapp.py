@@ -51,4 +51,4 @@ if st.button('Analyze'):
 
     # Display results
     st.write('Naive Bayes Prediction: Positive' if nb_prediction == 0 else 'Naive Bayes Prediction: Negative')
-    st.write('LSTM Prediction: Positive' if lstm_prediction > 0.5 else 'LSTM Prediction: Negative')
+    st.write('LSTM Prediction: Positive' if lstm_prediction >= 0.5 else 'LSTM Prediction: Negative')
