@@ -4,3 +4,4 @@ tensorflow
 numpy
 gensim  # For Word2Vec
 nltk
+keras

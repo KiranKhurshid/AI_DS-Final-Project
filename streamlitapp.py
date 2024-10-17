@@ -1,14 +1,29 @@
 import streamlit as st
 import joblib
 import numpy as np
+import re
 import tensorflow as tf
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+import keras
+from keras.preprocessing.sequence import pad_sequences
 from gensim.models import Word2Vec
+
+# Define the preprocess_text function
+def preprocess_text(text):
+    # Convert to lowercase
+    text = text.lower()
+    # Remove special characters
+    text = re.sub(r'\W', ' ', text)
+    # Remove single characters
+    text = re.sub(r'\s+[a-zA-Z]\s+', ' ', text)
+    # Remove multiple spaces
+    text = re.sub(r'\s+', ' ', text, flags=re.I)
+    return text
 
 # Load the saved models
 nb_model = joblib.load('nb_sentiment_model_word2vec.pkl')  # Load the Word2Vec Naive Bayes model
 lstm_model = tf.keras.models.load_model('lstm_sentiment_model.h5')
-word2vec_model = Word2Vec.load('word2vec_model_path')  # Load your trained Word2Vec model
+word2vec_model = Word2Vec.load('word2vec_model.pkl')  # Load your trained Word2Vec model
+tokenizer = joblib.load('tokenizer.pkl')  # Load tokenizer for LSTM model
 
 # Streamlit app
 st.title('Sentiment Analysis')
@@ -35,5 +50,5 @@ if st.button('Analyze'):
     lstm_prediction = lstm_model.predict(lstm_input_pad)[0][0]
 
     # Display results
-    st.write('Naive Bayes Prediction: Positive' if nb_prediction == 1 else 'Naive Bayes Prediction: Negative')
+    st.write('Naive Bayes Prediction: Positive' if nb_prediction == 0 else 'Naive Bayes Prediction: Negative')
     st.write('LSTM Prediction: Positive' if lstm_prediction > 0.5 else 'LSTM Prediction: Negative')
